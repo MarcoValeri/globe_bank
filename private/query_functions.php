@@ -23,20 +23,17 @@
     }
 
     // Create a function that allows to add a subject
-    function insert_subject($menu_name, $position, $visible) {
+    function insert_subject($subject) {
         global $db;
 
         // Handle form values send by new.php
-        $menu_name = $_POST['menu_name'] ?? '';
-        $position = $_POST['position'] ?? '';
-        $visible = $_POST['visible'] ?? '';
 
         $sql = "INSERT INTO subjects ";
         $sql .= "(menu_name, position, visible) ";
         $sql .= "VALUES (";
-        $sql .= "'" . $menu_name . "',";
-        $sql .= "'" . $position . "',";
-        $sql .= "'" . $visible . "'";
+        $sql .= "'" . $subject['menu_name'] . "',";
+        $sql .= "'" . $subject['position'] . "',";
+        $sql .= "'" . $subject['visible'] . "'";
         $sql .= ")";
         $result = mysqli_query($db, $sql);
         // For INSERT statements, $result is true/false
