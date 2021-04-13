@@ -16,6 +16,11 @@
         }
     }
 
+    // Create a function that prevent SQL injection
+    function db_escape($connection, $string) {
+        return mysqli_real_escape_string($connection, $string);
+    }
+
     // Create a function that checks if the web application is connects to the db
     function confirm_db_connect() {
         if (mysqli_connect_errno()) {
