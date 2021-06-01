@@ -1,9 +1,16 @@
 <?php
     // Create a function that make a query relative subject inside the db
-    function find_all_subjects() {
+    function find_all_subjects($options=[]) {
         global $db;
+
+        $visible = $options['visible'] ?? false;
+
         $sql = "SELECT * FROM subjects ";
+        if ($visible) {
+          $sql .= "WHERE visible = true ";
+        }
         $sql .= "ORDER BY position ASC";
+
         $result = mysqli_query($db, $sql);
         confirm_result_set($result);
         return $result;
@@ -281,11 +288,16 @@
     }
   }
 
-  function find_pages_by_subject_id($subject_id) {
+  function find_pages_by_subject_id($subject_id, $options=[]) {
     global $db;
+
+    $visible = $options['visible'] ?? false;
 
     $sql = "SELECT * FROM pages ";
     $sql .= "WHERE subject_id='" . db_escape($db, $subject_id) . "' ";
+    if ($visible) {
+      $sql .= "AND visible = true ";
+    }
     $sql .= "ORDER BY position ASC";
     $result = mysqli_query($db, $sql);
     confirm_result_set($result);
